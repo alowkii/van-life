@@ -1,0 +1,165 @@
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  background-color: #FFF7ED;
+  color: #000000;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header > a {
+  margin: 2rem;
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: #000000;
+  text-decoration: none;
+}
+
+header > nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 30%;
+  margin: 0 1rem;
+  font-weight: 400;
+  color: #4D4D4D;
+}
+
+header > nav > a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: 600;
+}
+
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-page {
+  background-image: url('./assets/images/home-page.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 20%;
+}
+
+.home-page > .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.home-page > .content > h1 {
+  margin: 1rem 0;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.home-page > .content > p {
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 1rem 0;
+}
+
+.home-page > .content > a {
+  background-color: #FF8C38;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 5px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  text-align: center;
+  text-decoration: none;
+}
+
+.about-page{
+  background-color: #FFF7ED;
+  color: #000000;
+  display: block;
+}
+
+.about-page > .image-container{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 13rem;
+  overflow: hidden;
+}
+
+.about-page > .image-container > img {
+  width: 100%;
+}
+
+.about-page > .text-container{
+  margin: 3rem 1.5rem;
+}
+
+.about-page > .text-container > h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-top: 1rem;
+}
+
+.about-page > .text-container > p {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-top: 1.8rem;
+}
+
+.about-page > .text-container > p > span{
+  text-wrap: nowrap;
+}
+
+.about-page > .explore-link{
+  margin: 3rem 1.5rem;
+  padding: 2.1rem;
+  background-color: #FFCC8D;
+  border-radius: 4px;
+}
+
+.about-page > .explore-link > h3{
+  font-size: 1.4rem;
+}
+
+.about-page > .explore-link > a{
+  display: inline-block;
+  background-color: #000000;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  padding: 0.8rem 1rem;
+  margin-top: 1rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4.5rem;
+  background-color: #252525;
+  color: #AAAAAA;
+  bottom: 0;
+  font-size: 0.9rem;
+}
