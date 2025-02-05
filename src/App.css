@@ -38,7 +38,12 @@ header > nav {
 header > nav > a {
     text-decoration: none;
     color: #000000;
-    font-weight: 600;
+    border-bottom: 1px solid transparent;
+    padding: 0 0.2rem;
+}
+
+header > nav > a:hover {
+    border-bottom: 1px solid #000000;
 }
 
 main {
@@ -174,6 +179,8 @@ main {
 .vans-page > .van-list > .van-title{
   width: 14rem;
   height: 20rem;
+  text-decoration: none;
+  color: #000000;
 }
 
 .vans-page > .van-list > .van-title > img{
@@ -207,24 +214,91 @@ main {
   font-size: 0.8rem;
 }
 
-.vans-page > .van-list > .van-title > .van-type {
-  padding: 0.3rem 0.8rem;
+.vans-page > .van-list > .van-title > .van-type,
+.van-detail-page > .van-detail > .van-type {
+  padding: 0.4rem 1rem;
   border-radius: 5px;
   font-style: normal;
   text-transform: capitalize;
   color: #FFEAD0;
 }
 
-.vans-page > .van-list > .van-title > .simple {
+.simple {
   background-color: #E17654;
 }
 
-.vans-page > .van-list > .van-title > .rugged {
+.rugged {
   background-color: #115E59;
 }
 
-.vans-page > .van-list > .van-title > .luxury {
+.luxury {
   background-color: #161616;
+}
+
+.van-detail-page {
+  background-color: #FFF7ED;
+  color: #000000;
+  display: flex;
+}
+
+.van-detail-page > .van-detail {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 1.5rem;
+  width: 100%;
+}
+
+.van-detail-page > .van-detail > .vans-page-btn {
+  text-decoration: none;
+  color: #000000;
+  margin-bottom: 3rem;
+  font-weight: 600;
+  border-bottom: 1px solid #000000;
+  width: fit-content;
+}
+
+.van-detail-page > .van-detail > img {
+  border-radius: 5px;
+}
+
+.van-detail-page > .van-detail > .van-type {
+  margin-top: 3rem;
+  width: auto;
+  padding: 0.5rem 1rem;
+  width: fit-content;
+}
+
+.van-detail-page > .van-detail > h1 {
+  margin-top: 1rem;
+}
+
+.van-detail-page > .van-detail > p {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 1rem;
+}
+
+.van-detail-page > .van-detail > p > span {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.van-detail-page > .van-detail > .van-description {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  line-height: 1.4rem;
+}
+
+.van-detail-page > .van-detail > .rent-btn {
+  padding: 0.9rem;
+  border-radius: 5px;
+  font-style: normal;
+  text-transform: capitalize;
+  color: #ffffff;
+  background-color: #FF8C38;
+  text-decoration: none;
+  margin: 1.8rem 0 1rem 0;
 }
 
 footer {
