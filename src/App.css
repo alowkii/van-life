@@ -248,13 +248,20 @@ main {
   width: 100%;
 }
 
-.van-detail-page > .van-detail > .vans-page-btn {
+.van-detail-page > .van-detail > div {
+  margin-bottom: 3rem;
+}
+
+.van-detail-page > .van-detail > div > .vans-page-btn {
   text-decoration: none;
   color: #000000;
-  margin-bottom: 3rem;
   font-weight: 600;
   border-bottom: 1px solid #000000;
   width: fit-content;
+}
+
+.van-detail-page > .van-detail > div > span {
+  margin-right: 0.5rem;
 }
 
 .van-detail-page > .van-detail > img {
