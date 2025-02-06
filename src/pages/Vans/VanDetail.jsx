@@ -17,10 +17,13 @@ export default function VanDetail() {
         <main className="van-detail-page">
             {van ? (
                 <div to={`/vans/${van.id}`} key={van.id} className="van-detail">
-                    <div>
-                        <span>&larr;</span>
-                        <Link className="vans-page-btn" to="/vans">Back to all vans</Link>
-                    </div>
+                    <Link 
+                        to=".."
+                        relative="path"
+                        className="back-button"
+                    >
+                        &larr; <span>Back to all vans</span>
+                    </Link>
                     <img src={van.imageUrl} alt={van.name} />
                     <i className={`van-type ${van.type} selected`}>{van.type}</i>
                     <h1>{van.name}</h1>
