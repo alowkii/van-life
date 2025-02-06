@@ -36,12 +36,12 @@ export default function HostVansDetail() {
                     </div>
                 </div>
                 <div className="host-van-detail-layout">
-                    <div className="host-van-detail-nav">
-                        <NavLink to="." className= {({isActive}) => isActive ? "line-active": null}>Details</NavLink>
-                        <NavLink to="Pricing" className= {({isActive}) => isActive ? "line-active": null}>Pricing</NavLink>
-                        <NavLink to="Photos" className= {({isActive}) => isActive ? "line-active": null}>Photos</NavLink>
-                    </div>
-                    <Outlet/>
+                    <nav className="host-van-detail-nav">
+                        <NavLink to="." end className= {({isActive}) => isActive ? "link-active": ""}>Details</NavLink>
+                        <NavLink to="pricing" className= {({isActive}) => isActive ? "link-active": ""}>Pricing</NavLink>
+                        <NavLink to="photos" className= {({isActive}) => isActive ? "link-active": ""}>Photos</NavLink>
+                    </nav>
+                    <Outlet context={ {van} }/>
                 </div>
             </div>
         </section>

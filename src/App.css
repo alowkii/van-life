@@ -450,9 +450,40 @@ main {
   opacity: 1;
 }
 
+.host-page > .host-content > .host-van-detail-layout-container > .host-van-detail-layout > .host-van-detail-info > h4{
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.host-page > .host-content > .host-van-detail-layout-container > .host-van-detail-layout > .host-van-detail-info > h4 > span{
+  font-weight: 400;
+}
+
+.host-page > .host-content > .host-van-detail-layout-container > .host-van-detail-layout > .host-van-detail-info > h4 > i{
+  font-style: normal;
+  text-transform: capitalize;
+  font-weight: 400;
+}
+
+.host-page > .host-content > .host-van-detail-layout-container > .host-van-detail-layout > .host-van-detail-pricing > h1{
+  font-weight: 600;
+  font-size: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.host-page > .host-content > .host-van-detail-layout-container > .host-van-detail-layout > .host-van-detail-pricing > h1 > span{
+  font-weight: 500;
+  font-size: 1rem;
+  opacity: 0.6;
+}
+
+.host-page > .host-content > .host-van-detail-layout-container > .host-van-detail-layout > .host-van-detail-photos > img{
+  border-radius: 5px;
+}
+
 a.link-active {
-  border-bottom: 1px solid #000000;
-  opacity: 1;
+  border-bottom: 1px solid #000000 !important;
+  opacity: 1 !important;
 }
 
 footer {
