@@ -15,6 +15,7 @@ import HostVansDetail from './pages/Host/HostVansDetail'
 import HostVansInfo from './pages/Host/HostVansInfo'
 import HostVansPricing from './pages/Host/HostVansPricing'
 import HostVansPhotos from './pages/Host/HostVansPhotos'
+import PageNotFound from './pages/PageNotFound'
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path='vans' element={<Vans />} />
           <Route path='vans/:id' element={<VanDetail />} />
           <Route path='checkout' element={<CheckoutPage />} />
+          <Route path='*' element={<PageNotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useSearchParams, NavLink } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 export default function Vans() {
 	const [vans, setVans] = useState([])
@@ -16,18 +16,6 @@ export default function Vans() {
 						? vans.filter(van => van.type.toLowerCase() === typeFilter.toLowerCase()) 
 						: vans;
 
-	const vanElements = filteredVans.map(van => (
-			<Link to={van.id} key={van.id} className="van-title">
-				<img src={van.imageUrl} alt={van.name} />
-				<div className="van-info">
-					<h3>{van.name}</h3>
-					<p>${van.price}<span>/day</span></p>
-				</div>
-				<i className={`van-type ${van.type} selected`}>{van.type}</i>
-			</Link>
-		)
-	)
-
 	function handleFilterChange(key, value) {
 		setSearchParams(prevParams => {
 			if (value === null) {
@@ -38,6 +26,25 @@ export default function Vans() {
 			return prevParams;
 		})
 	}
+
+	const vanElements = filteredVans.map(van => (
+		<Link 
+			to={van.id} 
+			key={van.id} 
+			className="van-title"
+			state={{
+				search : `?${searchParams.toString()}`,
+				type : `${typeFilter || "all"}`
+			}}
+		>
+			<img src={van.imageUrl} alt={van.name} />
+			<div className="van-info">
+				<h3>{van.name}</h3>
+				<p>${van.price}<span>/day</span></p>
+			</div>
+			<i className={`van-type ${van.type} selected`}>{van.type}</i>
+		</Link>
+	))
 
 	return (
 		<main className="vans-page">
