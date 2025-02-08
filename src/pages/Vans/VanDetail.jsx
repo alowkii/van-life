@@ -16,7 +16,7 @@ export default function VanDetail() {
     return (
         <main className="van-detail-page">
             {van ? (
-                <div to={`/vans/${van.id}`} key={van.id} className="van-detail">
+                <div className="van-detail">
                     <Link 
                         to=".."
                         relative="path"
