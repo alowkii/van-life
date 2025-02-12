@@ -48,6 +48,26 @@ header > nav > a:hover {
   opacity: 1;
 }
 
+header > nav > .login-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.8rem;
+  border-radius: 50%;
+  width: 1.8rem;
+  height: 1.8rem;
+  border: 1px solid transparent;
+  opacity: 0.75;
+}
+
+header > nav > .login-btn:hover {
+  border: 1px solid #4D4D4D;
+}
+
+header > nav > .link-active.login-btn {
+  border: 1px solid #000000;
+}
+
 main {
   flex-grow: 1;
   display: flex;
@@ -542,6 +562,86 @@ main {
 
 .host-page > .host-content > .host-van-detail-layout-container > .host-van-detail-layout > .host-van-detail-photos > img{
   border-radius: 5px;
+}
+
+.login-page {
+  background-color: #FFF7ED;
+  color: #000000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  flex: 1;
+}
+
+.login-page > h1 {
+  font-size: 2.1rem;
+  font-weight: 700;
+}
+
+.login-page > form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 40rem;
+  margin-top: 2rem;
+}
+
+.login-page > form > input {
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 0.5rem 1rem;
+  border: none;
+  outline: none;
+  box-shadow: 0px 1px 2px 0px #0000000D;
+  background: #FFFFFF;
+  border: 1px solid #D1D5DB;
+}
+
+.login-page > form > input::placeholder{
+  color: #b6b9bf;
+}
+
+.login-page > form > input#email {
+  border-radius: 5px 5px 0 0;
+  border-bottom: none;
+}
+
+.login-page > form > input#password {
+  border-radius: 0 0 5px 5px;
+}
+
+.login-page > form > button {
+  background-color: #FF8C38;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  padding: 1.2rem;
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.login-page > form > button:hover {
+  background-color: #FFA657;
+}
+
+.login-page > h5 {
+  margin-top: 3rem;
+}
+
+.login-page > h5 > a {
+  margin-left: 0.2rem;
+  color: #FF8C38;
+  text-decoration: none;
+}
+
+.login-page > h5 > a:hover {
+  text-decoration: underline;
 }
 
 a.link-active {

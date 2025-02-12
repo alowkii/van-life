@@ -1,38 +1,30 @@
-import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useLoaderData } from "react-router-dom";
 import { getVans } from "../../api";
 
+export async function loader() {
+	try {
+		return await getVans();
+	} catch (error) {
+		console.error("Loader error:", error);
+		return { 
+			message: error.message,
+			status: error.status,
+			statusText: error.statusText
+		 };
+	}
+}
+
 export default function Vans() {
-	const [vans, setVans] = useState([]);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
-
-	useEffect(() => {
-		async function fetchVans() {
-			setLoading(true);
-			try {
-				const data = await getVans();
-				setVans(data);
-			} catch (error) {
-				setVans([]);
-				setError(error);
-			} finally {
-				setLoading(false);
-			}
-		}
-
-		fetchVans();
-	}, [])
-
+	const vansData = useLoaderData();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const typeFilter = searchParams.get("type");
 
 	const filteredVans = typeFilter
-						? vans.filter(van => van.type.toLowerCase() === typeFilter.toLowerCase()) 
-						: vans;
+		? vansData.filter((van) => van.type.toLowerCase() === typeFilter.toLowerCase())
+		: vansData;
 
 	function handleFilterChange(key, value) {
-		setSearchParams(prevParams => {
+		setSearchParams((prevParams) => {
 			const newParams = new URLSearchParams(prevParams.toString());
 			if (value === null) {
 				newParams.delete(key);
@@ -43,43 +35,14 @@ export default function Vans() {
 		});
 	}
 
-
-	if (loading) {
-		return (
-			<main className="vans-page">
-				<h1>Loading...</h1>
-			</main>
-		)
-	}
-
-	if (error) {
-		return (
-			<main className="vans-page">
-				<h1>Failed to fetch data!</h1>
-				<p>{error.message}</p>
-			</main>
-		)
-	}	
-
-	if( vans == undefined || vans.length === 0) {
-		return (
-			<main className="vans-page">
-				<h1>Explore our van options</h1>
-				<div className="van-list-filter">
-					<h3>No vans listed yet</h3>
-				</div>
-			</main>
-		)
-	}
-
-	const vanElements = filteredVans.map(van => (
+	const vanElements = filteredVans.map((van) => (
 		<Link 
 			to={van.id} 
 			key={van.id} 
 			className="van-title"
 			state={{
-				search : `?${searchParams.toString()}`,
-				type : `${typeFilter || "all"}`
+				search: `?${searchParams.toString()}`,
+				type: `${typeFilter || "all"}`
 			}}
 		>
 			<img src={van.imageUrl} alt={van.name} />
@@ -89,7 +52,7 @@ export default function Vans() {
 			</div>
 			<i className={`van-type ${van.type} selected`}>{van.type}</i>
 		</Link>
-	))
+	));
 
 	return (
 		<main className="vans-page">
@@ -124,5 +87,5 @@ export default function Vans() {
 				{vanElements}
 			</div>
 		</main>
-	)
+	);
 }

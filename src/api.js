@@ -1,12 +1,37 @@
 export async function getVans() {
-    const response = await fetch("/api/vans");
-    if (!response.ok) {
-        throw {
-            message: "Failed to fetch vans data!",
-            statusText: response.statusText,
-            status: response.status
+    try {
+        const response = await fetch("/api/vans");
+        
+        // If response is not JSON, prevent parsing error
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+            throw {
+                message: "Invalid response format. Expected JSON but received HTML.",
+                statusText: response.statusText || "Invalid Content-Type",
+                status: response.status || 500
+            };
         }
+
+        if (!response.ok) {
+            throw {
+                message: "Failed to fetch vans data!",
+                statusText: response.statusText,
+                status: response.status
+            };
+        }
+
+        const data = await response.json();
+        if (!data.vans) {
+            throw {
+                message: "Invalid response format: 'vans' key missing.",
+                statusText: "Invalid Data",
+                status: 500
+            };
+        }
+        return data.vans;
+
+    } catch (error) {
+        console.error("Error in getVans:", error);
+        throw error;
     }
-    const data = await response.json();
-    return data.vans;
 }

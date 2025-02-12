@@ -1,27 +1,21 @@
-import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Link, useLoaderData } from "react-router-dom"
 import { getVans } from "../../api"
 
-export default function HostVans() {
-    const [vans, setVans] = useState([])
-    const [loading, setLoading] = useState(true)
+export async function loader() {
+	try {
+		return await getVans();
+	} catch (error) {
+		console.error("Loader error:", error);
+		return { 
+			message: error.message,
+			status: error.status,
+			statusText: error.statusText
+		 };
+	}
+}
 
-    useEffect(() => {
-        async function fetchVans() {
-            try {
-                setLoading(true);
-                const vans = await getVans();
-                setVans(vans);
-            } catch (error) {
-                console.error("Error fetching vans:", error);
-                setVans([]); // Ensure it doesn't break the UI
-            } finally {
-                setLoading(false);
-            }
-        }
-    
-        fetchVans();
-    }, []);
+export default function HostVans() {
+    const vans = useLoaderData()
 
     if(vans == undefined || vans.length === 0) {
         return (
@@ -49,10 +43,7 @@ export default function HostVans() {
     return (
         <section className="host-content host-vans">
             <h1>Your listed vans</h1>
-            { (!loading) ? 
-                hostVansElmnts
-                : <h1>Loading...</h1>
-            }
+            {hostVansElmnts}
         </section>
     )
 }
