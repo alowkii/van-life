@@ -1,18 +1,38 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+import { getVans } from "../../api"
 
 export default function HostVans() {
     const [vans, setVans] = useState([])
-    useEffect(()=>{
-        fetch('/api/host/vans')
-        .then(res => res.json())
-        .then(data => {
-            setVans(data.vans)
-        })
-        .catch(err => console.log(err))
-    }, [])
+    const [loading, setLoading] = useState(true)
 
-    const hostVansElmnts = vans.map(van => (
+    useEffect(() => {
+        async function fetchVans() {
+            try {
+                setLoading(true);
+                const vans = await getVans();
+                setVans(vans);
+            } catch (error) {
+                console.error("Error fetching vans:", error);
+                setVans([]); // Ensure it doesn't break the UI
+            } finally {
+                setLoading(false);
+            }
+        }
+    
+        fetchVans();
+    }, []);
+
+    if(vans == undefined || vans.length === 0) {
+        return (
+            <section className="host-content host-vans">
+                <h1>Your listed vans</h1>
+                <h4>No vans listed yet</h4>
+            </section>
+        )
+    }
+
+    const hostVansElmnts = vans?.map(van => (
         <Link
             to={van.id}
             key={van.id}
@@ -29,7 +49,7 @@ export default function HostVans() {
     return (
         <section className="host-content host-vans">
             <h1>Your listed vans</h1>
-            { (vans.length > 0) ? 
+            { (!loading) ? 
                 hostVansElmnts
                 : <h1>Loading...</h1>
             }

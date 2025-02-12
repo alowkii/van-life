@@ -1,14 +1,29 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { getVans } from "../../api";
 
 export default function Vans() {
-	const [vans, setVans] = useState([])
+	const [vans, setVans] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
+
 	useEffect(() => {
-		fetch("/api/vans")
-			.then(response => response.json())
-			.then(data => setVans(data.vans))
-			.catch(error => console.error("Error fetching vans: "+error))
+		async function fetchVans() {
+			setLoading(true);
+			try {
+				const data = await getVans();
+				setVans(data);
+			} catch (error) {
+				setVans([]);
+				setError(error);
+			} finally {
+				setLoading(false);
+			}
+		}
+
+		fetchVans();
 	}, [])
+
 	const [searchParams, setSearchParams] = useSearchParams();
 	const typeFilter = searchParams.get("type");
 
@@ -18,13 +33,43 @@ export default function Vans() {
 
 	function handleFilterChange(key, value) {
 		setSearchParams(prevParams => {
+			const newParams = new URLSearchParams(prevParams.toString());
 			if (value === null) {
-				prevParams.delete(key);
+				newParams.delete(key);
 			} else {
-				prevParams.set(key, value);
+				newParams.set(key, value);
 			}
-			return prevParams;
-		})
+			return newParams;
+		});
+	}
+
+
+	if (loading) {
+		return (
+			<main className="vans-page">
+				<h1>Loading...</h1>
+			</main>
+		)
+	}
+
+	if (error) {
+		return (
+			<main className="vans-page">
+				<h1>Failed to fetch data!</h1>
+				<p>{error.message}</p>
+			</main>
+		)
+	}	
+
+	if( vans == undefined || vans.length === 0) {
+		return (
+			<main className="vans-page">
+				<h1>Explore our van options</h1>
+				<div className="van-list-filter">
+					<h3>No vans listed yet</h3>
+				</div>
+			</main>
+		)
 	}
 
 	const vanElements = filteredVans.map(van => (
