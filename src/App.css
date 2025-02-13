@@ -580,6 +580,12 @@ main {
   font-weight: 700;
 }
 
+.login-page > h2 {
+  color: rgb(197, 66, 0);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
 .login-page > form {
   display: flex;
   flex-direction: column;

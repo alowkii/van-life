@@ -41,7 +41,7 @@ export async function getHostVans(id) {
     try {
         const url = id ? `/api/host/vans/${id}` : "/api/host/vans";
         const response = await fetch(url);
-        
+
         // If response is not JSON, prevent parsing error
         const contentType = response.headers.get("content-type");
         if (!contentType || !contentType.includes("application/json")) {

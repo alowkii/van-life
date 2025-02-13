@@ -25,29 +25,52 @@ import HostVansPhotos from './pages/Host/HostVansPhotos'
 import { hostVansLoader, hostVanDetailLoader } from './pages/Host/HostVansLoader'
 import PageNotFound from './pages/PageNotFound'
 import Error from './components/Error'
-import Login from './pages/Login'
+import Login, { loginLoader } from './pages/Login'
+import { requireAuth } from './utils'
 
 const router = createBrowserRouter(createRoutesFromElements(
-  <Route path='/' element={<Layout />}>
-    <Route index element={<Home />} />
-    <Route path='host' element={<HostLayout />}>
-      <Route index element={<Dashboard />}/>
-      <Route path='income' element={<Income />}/>
-      <Route path='reviews' element={<Reviews />}/>
-      <Route  path='vans' 
-              element={<HostVans />} 
-              loader={hostVansLoader}
-              errorElement={<Error />}        
+  <Route path='/' element={<Layout />} errorElement={<Error />}>
+    <Route index element={<Home />} errorElement={<Error />}/>
+    <Route path='host' element={<HostLayout />} errorElement={<Error />}>
+      <Route 
+        index 
+        element={<Dashboard />} 
+        errorElement={<Error />}
+        loader={async() => await requireAuth()}
+      />
+      <Route 
+        path='income' 
+        element={<Income />} 
+        errorElement={<Error />}
+        loader={async() => await requireAuth()}
+      />
+      <Route 
+        path='reviews' 
+        element={<Reviews />} 
+        errorElement={<Error />}
+        loader={async() => await requireAuth()}
+      />
+      <Route  
+        path='vans' 
+        element={<HostVans />} 
+        loader={async () => {
+          await requireAuth()
+          return hostVansLoader()
+        }}
+        errorElement={<Error />}        
       />
       <Route 
         path='vans/:id' 
         element={<HostVansDetail />}
-        loader={hostVanDetailLoader}
+        loader={async () => {
+          await requireAuth()
+          return hostVanDetailLoader()
+        }}
         errorElement={<Error />}
       >
-        <Route index element={<HostVansInfo />} />
-        <Route path='pricing' element={<HostVansPricing />} />
-        <Route path='photos' element={<HostVansPhotos />} />
+        <Route index element={<HostVansInfo />} errorElement={<Error />}/>
+        <Route path='pricing' element={<HostVansPricing />} errorElement={<Error />}/>
+        <Route path='photos' element={<HostVansPhotos />} errorElement={<Error />} />
       </Route>
     </Route>
     <Route path='about' element={<About />} />
@@ -63,9 +86,14 @@ const router = createBrowserRouter(createRoutesFromElements(
       loader={vanDetailLoader}
       errorElement={<Error />}
     />
-    <Route path='checkout' element={<CheckoutPage />} />
-    <Route path='login' element={<Login />} />
-    <Route path='*' element={<PageNotFound />} />
+    <Route path='checkout' element={<CheckoutPage />} errorElement={<Error />} />
+    <Route 
+      path='login' 
+      element={<Login />} 
+      errorElement={<Error />} 
+      loader={loginLoader}
+    />
+    <Route path='*' element={<PageNotFound />} errorElement={<Error />} />
   </Route>
 ))
 

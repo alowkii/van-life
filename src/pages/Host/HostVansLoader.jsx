@@ -15,7 +15,8 @@ export async function hostVansLoader() {
 
 export async function hostVanDetailLoader({ params}) {
     try {
-        return await getHostVans(params.id);
+        const data = await getHostVans(params.id);
+        return data[0];
     } catch (error) {
         console.error("Loader error:", error);
         return { 
