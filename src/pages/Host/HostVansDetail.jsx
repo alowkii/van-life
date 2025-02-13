@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams, Link, Outlet, NavLink } from "react-router-dom"
 
-
 export default function HostVansDetail() {
     const params = useParams()
     const [van, setVan] = useState({})

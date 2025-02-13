@@ -1,18 +1,4 @@
 import { Link, useLoaderData } from "react-router-dom"
-import { getVans } from "../../api"
-
-export async function loader() {
-	try {
-		return await getVans();
-	} catch (error) {
-		console.error("Loader error:", error);
-		return { 
-			message: error.message,
-			status: error.status,
-			statusText: error.statusText
-		 };
-	}
-}
 
 export default function HostVans() {
     const vans = useLoaderData()
