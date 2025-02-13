@@ -1,6 +1,7 @@
-export async function getVans() {
+export async function getVans(id) {
     try {
-        const response = await fetch("/api/vans");
+        const url = id ? `/api/vans/${id}` : "/api/vans";
+        const response = await fetch(url);
         
         // If response is not JSON, prevent parsing error
         const contentType = response.headers.get("content-type");

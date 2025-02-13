@@ -1,17 +1,22 @@
-import { useEffect, useState } from "react"
-import { useParams, Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useLoaderData } from "react-router-dom"
+import { getVans } from "../../api"
+
+export async function loader({ params}) {
+    try {
+        return await getVans(params.id);
+    } catch (error) {
+        console.error("Loader error:", error);
+        return { 
+            message: error.message,
+            status: error.status,
+            statusText: error.statusText
+         };
+    }
+}
 
 export default function VanDetail() {
-    const params = useParams()
-    const [van, setVan] = useState({})
+    const van = useLoaderData();
     const location = useLocation()
-
-    useEffect(() => {
-        fetch(`/api/vans/${params.id}`)
-            .then(response => response.json())
-            .then(data => setVan(data.vans))
-            .catch(error => console.error("Error fetching van: " + error))
-    }, [params.id])
 
     const search = location.state?.search || ""
     const type = location.state?.type || "all"

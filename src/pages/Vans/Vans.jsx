@@ -15,13 +15,13 @@ export async function loader() {
 }
 
 export default function Vans() {
-	const vansData = useLoaderData();
+	const vans = useLoaderData();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const typeFilter = searchParams.get("type");
 
 	const filteredVans = typeFilter
-		? vansData.filter((van) => van.type.toLowerCase() === typeFilter.toLowerCase())
-		: vansData;
+		? vans.filter((van) => van.type.toLowerCase() === typeFilter.toLowerCase())
+		: vans;
 
 	function handleFilterChange(key, value) {
 		setSearchParams((prevParams) => {
