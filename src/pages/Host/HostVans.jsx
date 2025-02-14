@@ -3,7 +3,7 @@ import { Link, useLoaderData } from "react-router-dom"
 export default function HostVans() {
     const vans = useLoaderData()
 
-    if(vans == undefined || vans.length === 0) {
+    if(!Array.isArray(vans) || vans.length === 0) {
         return (
             <section className="host-content host-vans">
                 <h1>Your listed vans</h1>

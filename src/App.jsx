@@ -36,25 +36,25 @@ const router = createBrowserRouter(createRoutesFromElements(
         index 
         element={<Dashboard />} 
         errorElement={<Error />}
-        loader={async() => await requireAuth()}
+        loader={async({request}) => await requireAuth(request)}
       />
       <Route 
         path='income' 
         element={<Income />} 
         errorElement={<Error />}
-        loader={async() => await requireAuth()}
+        loader={async({request}) => await requireAuth(request)}
       />
       <Route 
         path='reviews' 
         element={<Reviews />} 
         errorElement={<Error />}
-        loader={async() => await requireAuth()}
+        loader={async({request}) => await requireAuth(request)}
       />
       <Route  
         path='vans' 
         element={<HostVans />} 
-        loader={async () => {
-          await requireAuth()
+        loader={async ({request}) => {
+          await requireAuth(request)
           return hostVansLoader()
         }}
         errorElement={<Error />}        
@@ -62,8 +62,8 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route 
         path='vans/:id' 
         element={<HostVansDetail />}
-        loader={async () => {
-          await requireAuth()
+        loader={async ({request}) => {
+          await requireAuth(request)
           return hostVanDetailLoader()
         }}
         errorElement={<Error />}

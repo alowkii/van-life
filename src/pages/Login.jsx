@@ -4,19 +4,25 @@ import { setStorage } from '../localStorage';
 
 export async function loader({ request }) {
     const url = new URL(request.url)
-    return url.searchParams.get("message")
+    return {
+        message : url.searchParams.get("message")
+    }
 }
 
 export async function action({ request }) {
     const formData = await request.formData();
     const email = formData.get("email");
     const password = formData.get("password");
+    let pathname = new URL(request.url).searchParams.get("redirectTo");
+    if(!pathname) {
+        pathname = "/host";
+    }
 
     try {
         const data = await loginUser({ email, password });
         if (data.user) {
             setStorage("loggedin", true);
-            return redirect("/host");
+            return redirect(pathname);
         } else {
             setStorage("loggedin", false);
             return { error: "Incorrect Credentials!" };
@@ -28,7 +34,7 @@ export async function action({ request }) {
 
 export default function Login() {
     const queryData = useActionData();
-    const message = useLoaderData();
+    const message = useLoaderData().message;
     const navigation = useNavigation();
 
     return (
