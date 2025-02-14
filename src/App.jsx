@@ -35,20 +35,20 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route 
         index 
         element={<Dashboard />} 
-        errorElement={<Error />}
         loader={async({request}) => await requireAuth(request)}
+        errorElement={<Error />}
       />
       <Route 
         path='income' 
         element={<Income />} 
-        errorElement={<Error />}
         loader={async({request}) => await requireAuth(request)}
+        errorElement={<Error />}
       />
       <Route 
         path='reviews' 
-        element={<Reviews />} 
-        errorElement={<Error />}
+        element={<Reviews />}
         loader={async({request}) => await requireAuth(request)}
+        errorElement={<Error />}
       />
       <Route  
         path='vans' 
@@ -62,9 +62,9 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route 
         path='vans/:id' 
         element={<HostVansDetail />}
-        loader={async ({request}) => {
+        loader={async ({request, params}) => {
           await requireAuth(request)
-          return hostVanDetailLoader()
+          return hostVanDetailLoader({params, request})
         }}
         errorElement={<Error />}
       >
@@ -90,9 +90,9 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route 
       path='login' 
       element={<Login />} 
-      errorElement={<Error />}
       loader={loginLoader}
       action={loginAction}
+      errorElement={<Error />}
     />
     <Route path='*' element={<PageNotFound />} errorElement={<Error />} />
   </Route>
