@@ -25,7 +25,7 @@ import HostVansPhotos from './pages/Host/HostVansPhotos'
 import { hostVansLoader, hostVanDetailLoader } from './pages/Host/HostVansLoader'
 import PageNotFound from './pages/PageNotFound'
 import Error from './components/Error'
-import Login, { loginLoader } from './pages/Login'
+import Login, { action as loginAction, loader as loginLoader } from './pages/Login'
 import { requireAuth } from './utils'
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -90,8 +90,9 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route 
       path='login' 
       element={<Login />} 
-      errorElement={<Error />} 
+      errorElement={<Error />}
       loader={loginLoader}
+      action={loginAction}
     />
     <Route path='*' element={<PageNotFound />} errorElement={<Error />} />
   </Route>

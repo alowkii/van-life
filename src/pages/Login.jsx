@@ -1,61 +1,68 @@
-import { useState } from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link, Form, useActionData, redirect, useNavigation, useLoaderData } from 'react-router-dom';
+import { loginUser } from '../api';
+import { setStorage } from '../localStorage';
 
-export async function loginLoader({ request }) {
+export async function loader({ request }) {
     const url = new URL(request.url)
-    return { message: url.searchParams.get("message") }
+    return url.searchParams.get("message")
+}
+
+export async function action({ request }) {
+    const formData = await request.formData();
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    try {
+        const data = await loginUser({ email, password });
+        if (data.user) {
+            setStorage("loggedin", true);
+            return redirect("/host");
+        } else {
+            setStorage("loggedin", false);
+            return { error: "Incorrect Credentials!" };
+        }
+    } catch (error) {
+        return { error: error.message };
+    }
 }
 
 export default function Login() {
-    const data = useLoaderData();
-
-    const [loginFormData, setLoginFormData] = useState({
-        email: "",
-        password: ""
-    });
-
-    function handleSubmit(event) {
-        event.preventDefault();
-        console.log(loginFormData);
-    }
-
-    function handleChange(event) {
-        const { name, value } = event.target;
-        setLoginFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
-    }
+    const queryData = useActionData();
+    const message = useLoaderData();
+    const navigation = useNavigation();
 
     return (
         <div className="login-page">
             <h1>Sign in to your account</h1>
-            {data.message && <h2>{data.message}</h2>}
-            <form onSubmit={handleSubmit}>
+            {(queryData?.error && <h3>{queryData.error}</h3>) ||
+            (message && <h3>{message}</h3>)}
+            <Form method="post" replace>
                 <label htmlFor="email"></label>
                 <input 
                     type="email" 
                     id="email" 
                     name="email"
-                    onChange={handleChange} 
                     placeholder="Email address" 
                     autoComplete="username"
+                    required
                 />
                 <label htmlFor="password"></label>
                 <input 
                     type="password" 
                     id="password" 
-                    name="password" 
-                    onChange={handleChange}
+                    name="password"
                     placeholder="Password" 
                     autoComplete="current-password"
+                    required
                 />
-                <button type="submit">Sign In</button>
-            </form>
+                <button type="submit" disabled={navigation.state==="submitting"}>
+                    {(navigation.state==="submitting")?"Logging in...":"Login"}
+                </button>
+            </Form>
             <h5>
                 Don&apos;t have an account?
-                <Link>Create one now</Link>
+                <Link to="/signup">Create one now</Link>
             </h5>
         </div>
-    )
+    );
 }
