@@ -16,11 +16,14 @@ export async function vansLoader(n=0) {
     }
 }
 
-export async function vanDetailLoader({ params}) {
+export async function vanDetailLoader({ params},n=0) {
     try {
         return await getVans(params.id);
     } catch (error) {
         console.error("Loader error:", error);
+        if(n != 1){
+            return vanDetailLoader({params},1);
+        }
         return { 
             message: error.message,
             status: error.status,
