@@ -1,15 +1,24 @@
 export async function getVans(id) {
-    const url = id ? `/api/vans/${id}` : "/api/vans"
-    const res = await fetch(url)
-    if (!res.ok) {
-        throw {
-            message: "Failed to fetch vans",
-            statusText: res.statusText,
-            status: res.status
+    const url = id ? `/api/vans/${id}` : "/api/vans";
+    try {
+        const res = await fetch(url);
+        console.log("Response status:", res.status);
+        console.log("Response headers:", res.headers.get("content-type"));
+
+        if (!res.ok) {
+            throw {
+                message: "Failed to fetch vans",
+                statusText: res.statusText,
+                status: res.status
+            };
         }
+
+        const data = await res.json();
+        return data?.vans ?? [];
+    } catch (error) {
+        console.error("Error fetching vans:", error);
+        return [];
     }
-    const data = await res.json();
-    return data?.vans ?? [];
 }
 
 export async function getHostVans(id) {

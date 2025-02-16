@@ -4,7 +4,9 @@ import App from './App';
 import './index.css';
 import { makeServer } from './mirage/server';
 
-makeServer();
+if (import.meta.env.MODE === 'development'){
+  makeServer();
+}
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

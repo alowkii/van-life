@@ -1,8 +1,10 @@
+import { defer } from "react-router-dom";
 import { getVans } from "../../api";
 
 export async function vansLoader(n=0) {
     try {
-        return await getVans();
+        const vansPromise = getVans();
+        return defer({vans: vansPromise});
     } catch (error) {
         console.error("Loader error:", error);
         if(n != 1){
